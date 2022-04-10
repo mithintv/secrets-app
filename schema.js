@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const encrypt = require("mongoose-encryption");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,12 +7,9 @@ const userSchema = new mongoose.Schema(
     password: String
   });
 
-userSchema.plugin(encrypt,
-  {
-    secret: process.env.SECRET,
-    encryptedFields: ["password"]
-  });
+userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 const User = new mongoose.model("User", userSchema);
+
 
 module.exports.User = User;
