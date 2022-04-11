@@ -1,11 +1,12 @@
 <%- include("partials/header") %>
 
   <div class="container mt-5">
+    <div class="row">
+      <h1 class="pl-3">Login</h1>
+    </div>
 
     <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-6">
-        <h1>Login</h1>
+      <div class="col-sm-8 mb-2">
         <div class="card">
           <div class="card-body">
 
@@ -24,7 +25,16 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3"></div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="/auth/google" class="btn btn-block btn-social btn-google mb-3 pt-1" role="button">
+              <i class="fab fa-google"></i>
+              Login with Google
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
