@@ -1,3 +1,4 @@
+//-------------- Initializing NPM Packages --------------//
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -10,6 +11,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
 
+//-------------- Initializing Express --------------//
 const app = express();
 
 
@@ -18,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-// Session stuff
+// Express Session Initialization
 app.use(session({
-  secret: "Our little secret",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookies: {}
@@ -32,7 +34,7 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/secretsDB");
 
-// schema import from schema.js
+//-------------- Mongoose Schema Initialization --------------//
 const userSchema = new mongoose.Schema(
   {
     email: String,
@@ -48,6 +50,8 @@ userSchema.plugin(findOrCreate);
 const User = new mongoose.model("User", userSchema);
 
 
+//-------------- Passport Initialization for Authentication --------------//
+
 passport.use(User.createStrategy());
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
@@ -62,7 +66,7 @@ passport.deserializeUser(function (user, cb) {
 });
 
 
-//------------ google oauth 2.0 via passport.js ------------//
+//-------------- Google OAuth 2.0 via passport.js --------------//
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -75,7 +79,9 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+
 //----------------------------- Routes -----------------------------//
+
 app.route("/")
   .get((req, res) => {
     res.render("home");
