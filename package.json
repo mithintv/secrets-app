@@ -7,7 +7,7 @@
     "express-session": "^1.17.2",
     "mongoose": "^6.2.10",
     "mongoose-findorcreate": "^3.0.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.22",
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
